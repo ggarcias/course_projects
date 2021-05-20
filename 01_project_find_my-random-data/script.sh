@@ -9,4 +9,4 @@ grep "0" $my_random_data_path;
 
 # 3+4) Count how many zeros there are + print the result
 count_of_0=$(grep -o "0" $my_random_data_path | wc -w);
-echo "There are ${count_of_0} times '0' is my_random_data.txt"
+echo "There are ${count_of_0} times '0' in my_random_data.txt"
