@@ -9,7 +9,8 @@ file_path=$(find ./${2} -name ${1});
 echo "${1} is located at: $file_path" ;
 
 # 2) Detect ZZZ (3rd parameter) inside the data
-# grep ${3} $file_path;
+grep ${3} $file_path;
 
 # 3+4) Count how many ZZZ there are + print the result
-echo "there are $(grep -c ${3} $file_path) ${3} in ${1}";
+word_count=$(grep -o ${3} $file_path | wc -w);
+echo "there are ${word_count} ${3} in ${1}";
