@@ -18,7 +18,7 @@ for i in {1..10};
             do
                 echo "sending job n°${job_number} to the nodes...";
                 # sending the job to the nodes, outputting in the folder we made
-                qsub -q all.q -e ${pwd}/qsub_output_script_02_nodes_loop/script_02_nodes_loop.err -o ${pwd}/qsub_output_script_02_nodes_loop/script_02_nodes_loop.out ./script_01_folders_files_integer.sh ${i};
+                qsub -q all.q -e ${pwd}/qsub_output_script_02_nodes_loop/script_02_nodes_loop_error -o ${pwd}/qsub_output_script_02_nodes_loop/script_02_nodes_loop_output ./script_01_folders_files_integer.sh ${i}
                 echo "the job was successfully sent";
 
             done;
