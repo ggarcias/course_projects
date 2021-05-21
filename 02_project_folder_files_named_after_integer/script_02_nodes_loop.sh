@@ -2,7 +2,7 @@
 
 # 2) Do another bash script that send different jobs of the script 1 to the nodes running a loop from 1 to 10
 
-echo "running ${pwd}/script_02_nodes_loop.sh...";
+echo "running $(pwd)/script_02_nodes_loop.sh...";
 
 # creating a folder in our current directory to keep the results of the jobs (creating folder and files)
 mkdir qsub_output_script_02_nodes_loop;
@@ -18,7 +18,7 @@ for i in {1..10};
             do
                 echo "sending job n°${job_number} to the nodes...";
                 # sending the job to the nodes, outputting in the folder we made
-                qsub -q all.q -e ${pwd}/qsub_output_script_02_nodes_loop/script_02_nodes_loop_error -o ${pwd}/qsub_output_script_02_nodes_loop/script_02_nodes_loop_output ./script_01_folders_files_integer.sh ${i}
+                qsub -q all.q -wd $(pwd)/qsub_output_script_02_nodes_loop -e script_01_folders_files_integer.err -o script_01_folders_files_integer.out script_01_folders_files_integer.sh ${i};
                 echo "the job was successfully sent";
 
             done;
