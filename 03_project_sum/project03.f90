@@ -93,8 +93,11 @@ program project03
             ! how to properly use n! on fortran
             ! Error: Function 'fact' at (1) has no IMPLICIT type
             ! y = 1 - (x_real**2)/fact(3) + (x_real**4)/fact(5) - (x_real**6)/fact(7)
+            ! in the end we're gonna calculate until x**13 for more precision
+            ! because otherwise we need to many iterations to find limit of sum
+            ! = pi
 
-            y = 1 - (x_real**2)/6 + (x_real**4)/120 - (x_real**6)/5040
+            y = 1 - (x_real**2)/6 + (x_real**4)/120 - (x_real**6)/5040 + (x_real**8)/362880 - (x_real**10)/39916800 + (x_real**12)/6227020800
             summ = summ + y
 
         end if
