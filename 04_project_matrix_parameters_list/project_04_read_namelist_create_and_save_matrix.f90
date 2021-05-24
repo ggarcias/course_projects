@@ -11,7 +11,7 @@ program read_a_namelist_create_a_matrix_and_save_that_matrix
     implicit none
 
     integer(8) :: n, file_id_namelist
-    character(*) :: target_file
+    character(100) :: target_file
     integer(8), allocatable, dimension(:,:) :: matrix
 
     namelist /parameters_matrix_size_and_target_file/ n, target_file
@@ -58,7 +58,7 @@ contains
             implicit none
 
             integer(8), allocatable, dimension(:,:), intent(in) :: matrix
-            character(*), intent(in) :: target_file
+            character(100), intent(in) :: target_file
             integer(8) :: i, file_id_matrix
 
             file_id_matrix = 555
