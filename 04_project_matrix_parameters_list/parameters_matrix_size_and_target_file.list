@@ -1,0 +1,4 @@
+&/parameters_matrix_size_and_target_file
+    n = 1,
+    target_file = matrix001
+    /
