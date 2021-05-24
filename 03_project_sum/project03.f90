@@ -12,6 +12,7 @@ program project03
 
     integer(8) :: x, intervall_inf, intervall_sup
     real(8) :: x_real,y, summ
+    logical :: integer_intervalls
 
     ! /!\ loops must be integers, we can not ask for reals
     ! (1) idea : with the pace argument we could ask what decimal we want
@@ -24,13 +25,31 @@ program project03
 
     ! input of the intervall
 
-    print *, "select starting x for the sum"
-    read *, intervall_inf
+    ! checking that the input intervalls are integers
 
-    print *, "select ending x for the sum"
-    read *, intervall_sup
+    integer_intervalls=.false.
 
-    print *, "the intervall you chose is:", intervall_inf, ";", intervall_sup
+    do while (integer_intervalls=.false.)
+
+        print *, "select starting x for the sum"
+        read(*,'(i15)',iostat=ierror_inf) intervall_inf
+
+        print *, "select ending x for the sum"
+        read(*,'(i15)',iostat=ierror_sup) intervall_sup
+
+        print *, "the intervall you chose is:", intervall_inf, ";", intervall_sup
+
+        if (ierror_inf==0 .and. ierror_sup==0) then
+
+            integer_intervalls = .true.
+
+        else
+            
+            print *, "Error: the inputs must be integers"
+
+        end if
+
+    end do
 
     ! /!\ abandoned feature for now, see (1)
     ! input of the pace
@@ -97,7 +116,9 @@ program project03
             ! because otherwise we need to many iterations to find limit of sum
             ! = pi
 
-            y = 1 - (x_real**2)/6 + (x_real**4)/120 - (x_real**6)/5040 + (x_real**8)/362880 - (x_real**10)/39916800 + (x_real**12)/6227020800
+            y = 1 - (x_real**2)/6 + (x_real**4)/120 - (x_real**6)/5040 + &
+                (x_real**8)/362880 - (x_real**10)/39916800
+            ! we came back to x**11 because fact(13) was too big of an integer
             summ = summ + y
 
         end if
