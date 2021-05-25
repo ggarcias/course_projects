@@ -1,4 +1,0 @@
-&parameters_matrix_size_and_target_file
-    n = 10,
-    target_file = matrix10.txt
-    /

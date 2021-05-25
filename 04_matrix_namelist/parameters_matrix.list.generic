@@ -1,4 +1,4 @@
-&parameters_matrix_size_and_target_file
+&parameters_matrix
     n = ---n---,
     target_file = ---target_file---
     /

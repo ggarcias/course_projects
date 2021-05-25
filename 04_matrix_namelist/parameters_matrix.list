@@ -1,0 +1,4 @@
+&parameters_matrix
+    n = 3,
+    target_file = "file_matrix3.txt"
+    /
