@@ -37,11 +37,6 @@ for k in {1..3}; do
     # we send the job (running bash shell.sh) to the nodes
     # bash shell.sh
     qsub -q all.q -cwd -o qsub${k}.out -e qsub${k}.err ./shell.sh ${k};
-    echo "output:";
-    cat qsub${k}.out;
-    echo "errors:";
-    cat qsub${k}.err;
-
 done;
 
 echo "done.";
