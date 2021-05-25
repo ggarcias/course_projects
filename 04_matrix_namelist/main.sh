@@ -14,29 +14,14 @@
 
 # Loop from 1 to X
 # the n° of the loop will be the n-size of the matrix & the extension of the target_file
-for k in {1..3}; do
-    echo "loop n°${k}...";
-    # we change the values inside the namelist file according to the loop iteration
-    n=${k};
-    target_file_output="\"file_matrix${k}.txt\"";
+for k in {1..5}; do
 
-    target_file="parameters_matrix.list";
-    generic_file="parameters_matrix.list.generic";
+    mkdir output${k};
+    for element in $(find ./ -type f); do cp ${element} output${k}; done;
 
-    echo "namelist:";
-    cat ${target_file};
+    echo "loop ${k}...";
+    qsub -q all.q -wd output${k} -o qsub${k}.out -e qsub${k}.err ./shell.sh ${k};
 
-    cp ${generic_file} ${target_file};
-
-    sed -i "s:---n---:${n}:" ${target_file};
-    sed -i "s:---target_file---:${target_file_output}:" ${target_file};
-
-    echo "updated namelist:";
-    cat ${target_file};
-
-    # we send the job (running bash shell.sh) to the nodes
-    # bash shell.sh
-    qsub -q all.q -cwd -o qsub${k}.out -e qsub${k}.err ./shell.sh ${k};
 done;
 
 echo "done.";
