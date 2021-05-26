@@ -20,7 +20,9 @@ for k in {1..5}; do
     for element in $(find ./ -type f); do cp ${element} output${k}; done;
 
     echo "loop ${k}...";
-    qsub -q all.q -wd output${k} -o qsub${k}.out -e qsub${k}.err ./shell.sh ${k};
+    cd output${k};
+    qsub -q all.q -cwd -o qsub${k}.out -e qsub${k}.err ./shell.sh ${k};
+    cd ..;
 
 done;
 
