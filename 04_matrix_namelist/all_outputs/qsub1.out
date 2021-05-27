@@ -1,0 +1,12 @@
+namelist:
+&parameters_matrix
+    n = 3,
+    target_file = "file_matrix3.txt"
+    /
+updated namelist:
+&parameters_matrix
+    n = 1,
+    target_file = "file_matrix1.txt"
+    /
+ n:                     1 ; target file: file_matrix1.txt                                                                                    
+                    1

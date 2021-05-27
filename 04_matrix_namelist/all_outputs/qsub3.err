@@ -1,0 +1,22 @@
+mkdir: no se puede crear el directorio «all_outputs»: El fichero ya existe
+rm: no se puede borrar «./output3/parameters_matrix.list»: No existe el fichero o el directorio
+rm: no se puede borrar «./output3/tidy_up.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output3/compile_gfortran.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output3/parameters_matrix.list.generic»: No existe el fichero o el directorio
+rm: no se puede borrar «./output3/clean.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output1/shell.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output1/fortran.f90»: No existe el fichero o el directorio
+rm: no se puede borrar «./output1/parameters_matrix.list»: No existe el fichero o el directorio
+rm: no se puede borrar «./output1/tidy_up.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output1/compile_gfortran.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output1/parameters_matrix.list.generic»: No existe el fichero o el directorio
+rm: no se puede borrar «./output1/clean.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output4/parameters_matrix.list.generic»: No existe el fichero o el directorio
+rm: no se puede borrar «./output4/clean.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output2/shell.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output2/fortran.f90»: No existe el fichero o el directorio
+rm: no se puede borrar «./output2/parameters_matrix.list»: No existe el fichero o el directorio
+rm: no se puede borrar «./output2/tidy_up.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output2/compile_gfortran.sh»: No existe el fichero o el directorio
+rm: no se puede borrar «./output2/parameters_matrix.list.generic»: No existe el fichero o el directorio
+rm: no se puede borrar «./output2/clean.sh»: No existe el fichero o el directorio
