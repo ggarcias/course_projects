@@ -19,3 +19,13 @@ echo "updated namelist:";
 cat ${target_file};
 
 bash compile_gfortran.sh ${1};
+
+sleep 30;
+
+# now we 'clean up'
+# we move the output_file 'up' to the previous working directory
+mv file_matrix${1}.txt ../;
+# we delete the directory copy
+cd .. ;
+bash tidy_up.sh;
+# rm -r output${k};
