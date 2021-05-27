@@ -69,9 +69,7 @@ call check(nf90_get_var(ncid, idvarlat, varlat), "get var lat")
 
 ! print *, "printing latitude values:"
 ! do i=1,lat
-
 !     print *, varlat(i)
-
 ! end do
 
 allocate(varlong(1:long))
@@ -79,9 +77,7 @@ call check(nf90_get_var(ncid, idvarlong, varlong), "get var long")
 
 ! print *, "printing longitude values:"
 ! do i=1,long
-
 !    print *, varlong(i)
-
 ! end do
 
 
@@ -106,7 +102,6 @@ call check(nf90_get_var(ncid, idvartime, vartime), "get var time")
 !do i=1,depth
 !    print *, vardepth(i)
 !end do
-
 !print *, "printing time values:"
 !do i=1,time
 !    print *, vartime(i)
@@ -122,34 +117,20 @@ call check(nf90_get_var(ncid, idvarvo, vo), "get var vo")
 
 ! getting vo and uo values
 !do longitudes=1,long
-
 !    do latitudes=1,lat
-!
 !        do depths=1,depth
-!
 !            do times=1,time
-!
 !                print *, longitudes, latitudes, depths, times
 !                do i=1,2
-!
 !                    if (i==1) then
-!
 !                        print *, "uo: ", uo(longitudes, latitudes, depths, times)
-!
 !                    else
-!
 !                        print *, "vo: ", vo(longitudes, latitudes, depths, times)
-!
 !                    end if
-!
 !                end do
-!
 !            end do
-!
 !        end do
-!
 !    end do
-!
 !end do
 
 
@@ -205,8 +186,12 @@ vo_real=scl_fact*real(vo)
 
 
 ! ==========================================================
+! ==========================================================
+! ==========================================================
 
 
+
+! PROJECT N°6
 
 ! create a new netcdf_file with:
 
@@ -221,7 +206,7 @@ vo_real=scl_fact*real(vo)
 ! - v(lon,lat,time) : double / real(8)
 
 print *, "Let's create a new dataset: LonLatTimeUV.nc"
-print *, "Based on cmems_ibi_example.nc dataset"
+print *, "based on cmems_ibi_example.nc dataset"
 print *, "containing dimensions: long(itude), lat(itude), time;"
 print *, "variables: u, v"
 
