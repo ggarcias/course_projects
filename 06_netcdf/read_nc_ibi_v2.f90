@@ -210,13 +210,24 @@ print *, "based on cmems_ibi_example.nc dataset"
 print *, "containing dimensions: long(itude), lat(itude), time;"
 print *, "variables: u, v"
 
-! create new netcdf dataset
-call check(nf90_create("LonLatTimeUV.nc", NF90_NOCLOBBER, ncid_new), "create new netcdf")
+! create new netcdf dataset / overwrites if file exists
+call check(nf90_create("LonLatTimeUV.nc", NF90_CLOBBER, ncid_new), "create new netcdf")
+
+! global attributes
+! imported: Conventions; source; institution;
+! modified: title
 
 ! dimensions : lon, lat, time
+! LONGITUDE ; LATITUDE ; TIME :
+! imported attributes from previous dataset :
+! standard_name ; long_name ; units ; axis
+! for TIME only : calendar
+
 !call check(nf90_def_dim(), "def dim new netcdf")
 
 ! variables : u, v
+! imported attributes from previous dataset :
+! standard_name ; long_name ; units ; unit_long
 !call check(nf90_def_var(), "def var new netcdf")
 
 ! attributes : same as old_file
