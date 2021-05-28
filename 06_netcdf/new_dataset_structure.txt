@@ -1,39 +1,39 @@
 structure of the new NETCDF dataset:
 
 netcdf LonLatTimeUV {
-    dimensions:
+dimensions:
     longitude = 119 ;
     latitude = 105 ;
     time = UNLIMITED ; // (504 currently)
-    variables:
+variables:
     float longitude(longitude) ;
-    longitude:standard_name = "longitude" ;
-    longitude:long_name = "Longitude" ;
-    longitude:units = "degrees_east" ;
-    longitude:axis = "X" ;
+        longitude:standard_name = "longitude" ;
+        longitude:long_name = "Longitude" ;
+        longitude:units = "degrees_east" ;
+        longitude:axis = "X" ;
     float latitude(latitude) ;
-    latitude:standard_name = "latitude" ;
-    latitude:long_name = "Latitude" ;
-    latitude:units = "degrees_north" ;
-    latitude:axis = "Y" ;
+        latitude:standard_name = "latitude" ;
+        latitude:long_name = "Latitude" ;
+        latitude:units = "degrees_north" ;
+        latitude:axis = "Y" ;
     double time(time) ;
-    time:standard_name = "time" ;
-    time:long_name = "time" ;
-    time:units = "hours since 1950-1-1 00:00:00" ;
-    time:calendar = "standard" ;
-    time:axis = "T" ;
+        time:standard_name = "time" ;
+        time:long_name = "time" ;
+        time:units = "hours since 1950-1-1 00:00:00" ;
+        time:calendar = "standard" ;
+        time:axis = "T" ;
     float u(time, latitude, longitude) ;
-    u:standard_name = "eastward_sea_water_velocity" ;
-    u:long_name = "Eastward velocity" ;
-    u:units = "m s-1" ;
-    u:unit_long = "Meters per second" ;
+        u:standard_name = "eastward_sea_water_velocity" ;
+        u:long_name = "Eastward velocity" ;
+        u:units = "m s-1" ;
+        u:unit_long = "Meters per second" ;
     float v(time, latitude, longitude) ;
-    v:standard_name = "northward_sea_water_velocity" ;
-    v:long_name = "Northward velocity" ;
-    v:units = "m s-1" ;
-    v:unit_long = "Meters per second" ;
+        v:standard_name = "northward_sea_water_velocity" ;
+        v:long_name = "Northward velocity" ;
+        v:units = "m s-1" ;
+        v:unit_long = "Meters per second" ;
 
-    // global attributes:
+// global attributes:
     :title = "standard file" ;
     :institution = "CSIC" ;
     :source = "data/TENCST-PdE-hm-20210417-HC.nc" ;
