@@ -147,12 +147,12 @@ program create_LonLatTimeUV
     ! here parameter 'len' can be set as an integer or NF90 UNLIMITED
     ! but we know the final size: number of dimensions extracted before!
 
-    call check(nf90_def_dim(new_file, "longitude", long, idloo),&
-    "def dimension longitude in new dataset")
-    call check(nf90_def_dim(new_file, "latitude", lat, idlaa),&
-    "def dimension latitude in new dataset")
     call check(nf90_def_dim(new_file, "time", time, idtt),&
     "def dimension time in new dataset")
+    call check(nf90_def_dim(new_file, "latitude", lat, idlaa),&
+    "def dimension latitude in new dataset")
+    call check(nf90_def_dim(new_file, "longitude", long, idloo),&
+    "def dimension longitude in new dataset")
 
     ! =====================================================================
     ! =====================================================================
