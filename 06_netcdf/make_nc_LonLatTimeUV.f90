@@ -3,16 +3,16 @@ program create_LonLatTimeUV
     use netcdf
     implicit none
 
-    ! FILE ids
+    ! file IDs
     integer :: ncid,new_file
 
     ! dimensions IDs (original file;output file)
     ! time,latitude,longitude,(depth)
-    ! integer :: idt,idla,idlo,idd,idtt,idlaa,idloo
+    integer :: idt,idla,idlo,idd,idtt,idlaa,idloo
     ! variables IDs
     integer :: iduo,idvo,idu,idv
     ! dimensions (original/new)
-    integer :: time,long,lat,depth,timee,longg,latt
+    integer :: time,long,lat,depth
 
     ! origiinal file path ; dimension name
     character(len=25) :: input_data, name
