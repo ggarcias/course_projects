@@ -57,9 +57,9 @@ program create_LonLatTimeUV
     ! then their number of dimensions
     ! this is automated thx to subroutine 'extract_dimension'
 
-    ! we don't want to 'copy' dimension 'depth' into...
-    ! the new file but we still need to extract it...
-    ! to access uo and vo because 'depth' is part of...
+    ! we don't want to 'copy' dimension 'depth' into
+    ! the new file but we still need to extract it
+    ! to access uo and vo because 'depth' is part of
     ! their key
 
     ! let's open cmems_ibi_example.nc
@@ -122,10 +122,12 @@ program create_LonLatTimeUV
         end do
     end do
 
-    ! let's create (or overwrite previously created file...
-    ! .. LonLatTimeUV.nc
+    ! let's create (or overwrite) previously created file
+    ! 'LonLatTimeUV.nc'
     call check(nf90_create("LonLatTimeUV.nc", NF90_CLOBBER, new_file), &
      "create LonLatTimeUV.nc")
+
+    ! UNFINISHED
 
     ! now that we extracted what we needed,
     ! let's close cmems_ibi_example.nc
