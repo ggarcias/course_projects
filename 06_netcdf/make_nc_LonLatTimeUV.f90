@@ -11,7 +11,7 @@ program create_LonLatTimeUV
     integer :: idt,idla,idlo,idd,idtt,idlaa,idloo
     ! variables IDs
     integer :: iduo,idvo,idu,idv
-    ! dimensions (original/new)
+    ! dimensions
     integer :: time,long,lat,depth
 
     ! origiinal file path ; dimension name
