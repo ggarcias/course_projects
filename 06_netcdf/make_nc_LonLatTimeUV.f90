@@ -16,13 +16,13 @@ program create_LonLatTimeUV
     ! dimensions
     integer :: time,long,lat,depth
 
-    ! origiinal file path ; dimension name
+    ! original file path ; dimension/variable name
     character(len=25) :: input_data, name
 
-    ! scale_factor (uo & vo)
+    ! scale_factor (float extracted from uo/vo)
     real(4) :: scl_fact
 
-    ! uo & vo, u & v varuables (vectors)
+    ! uo & vo, u & v variables (vectors)
     integer(2), dimension(:,:,:,:), allocatable :: uo, vo
     ! one key dimension less because we don't keep depth:
     real(4), dimension(:,:,:), allocatable :: u, v
@@ -66,15 +66,14 @@ program create_LonLatTimeUV
 
     ! let's open cmems_ibi_example.nc
     input_data = "cmems_ibi_example.nc"
-
     call check(nf90_open(input_data, nf90_nowrite, ncid),&
     "open cmems_ibi_example.nc")
 
-    ! let's extract dimensions' dimensions:
-    call extract_dimension(ncid,"time",time)
-    call extract_dimension(ncid,"longitude",long)
-    call extract_dimension(ncid,"latitude",lat)
-    call extract_dimension(ncid,"depth",depth)
+    ! let's extract dimensions' dimensions & ids:
+    call extract_dimension(ncid,"time",idt,time)
+    call extract_dimension(ncid,"longitude",idlo,long)
+    call extract_dimension(ncid,"latitude",idla,lat)
+    call extract_dimension(ncid,"depth",idd,depth)
 
     ! we will store uo & vo values in order to
     ! 'transform' the values into reals/floats
@@ -107,7 +106,7 @@ program create_LonLatTimeUV
     ! we can't simply type:
     ! u=scl_fact*uo
     ! v=scl_fact*vo
-    ! becayse now u & v are NOT the same 'shape' as uo & vo
+    ! because now u & v are NOT the same 'shape' as uo & vo
     ! because we 'dropped' dimension 'depth'
     ! let's do it 'manually' with a loop
 
@@ -135,7 +134,7 @@ program create_LonLatTimeUV
     ! - latitude (float = real(4))
     ! - time (double = real(8))
     ! variables u & v (float = real(4))
-    ! (because scl_fact is a float too)
+    ! (because scl_fact is a float)
 
     ! copy the attributes we want (see new_dataset_structure.txt)
     ! from cmems_ibi_example.nc (ncid) to LonLatTimeUV.nc (new_file)
@@ -143,7 +142,42 @@ program create_LonLatTimeUV
     ! and finally set the global attributes of LonLatTimeUV.nc
     ! (most of them will be imported/'copied' from cmems_ibi_example.nc
 
+    ! let's create the dimensions with command:
+    ! nf90_def_dim(ncid, name, len, dimid)
+    ! here parameter 'len' can be set as an integer or NF90 UNLIMITED
+    ! but we know the final size: number of dimensions extracted before!
+
+    call check(nf90_def_dim(new_file, "longitude", long, idloo),&
+    "def dimension longitude in new dataset")
+    call check(nf90_def_dim(new_file, "latitude", lat, idlaa),&
+    "def dimension latitude in new dataset")
+    call check(nf90_def_dim(new_file, "time", time, idtt),&
+    "def dimension time in new dataset")
+
+    ! =====================================================================
+    ! =====================================================================
+    ! =====================================================================
     ! UNFINISHED
+
+    ! let's create the variables u & v using:
+    ! nf90_def_var(ncid, name, xtype, dimids, varid)
+    ! here xtype will be NF90 FLOAT
+    ! here dimid will be u/v
+
+    ! TO DO
+
+    ! let's 'import' dimensions' & variables' attributes
+
+    ! TO DO
+
+    ! let's set the global attributes
+
+    ! TO DO
+
+    ! UNFINISHED
+    ! =====================================================================
+    ! =====================================================================
+    ! =====================================================================
 
     ! now that we extracted what we needed,
     ! let's close cmems_ibi_example.nc
@@ -174,14 +208,14 @@ program create_LonLatTimeUV
 
 
 
-        subroutine extract_dimension(file_id,name_dimension,dimout)
+        subroutine extract_dimension(file_id,name_dimension,iddimout,dimout)
 
             use netcdf
             implicit none
 
             integer, intent(in) :: file_id
             integer :: dimid, dimval
-            integer, intent(out) :: dimout
+            integer, intent(out) :: iddimout, dimout
             character(len=*), intent(in) :: name_dimension
 
             ! extract dimension id
@@ -193,6 +227,7 @@ program create_LonLatTimeUV
             "inquire dimension value")
 
             dimout=dimval
+            iddimout=dimid
 
         end subroutine extract_dimension
 
