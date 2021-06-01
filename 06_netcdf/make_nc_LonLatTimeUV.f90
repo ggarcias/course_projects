@@ -1,5 +1,7 @@
 program create_LonLatTimeUV
 
+    ! https://www.nag.com/market/training/fortran-workshop/netcdf-f90.pdf
+
     use netcdf
     implicit none
 
@@ -23,7 +25,7 @@ program create_LonLatTimeUV
     ! uo & vo, u & v varuables (vectors)
     integer(2), dimension(:,:,:,:), allocatable :: uo, vo
     ! one key dimension less because we don't keep depth:
-    real(8), dimension(:,:,:), allocatable :: u, v
+    real(4), dimension(:,:,:), allocatable :: u, v
 
     ! loops iterations
     integer :: longs,lats,depths,times
@@ -126,6 +128,20 @@ program create_LonLatTimeUV
     ! 'LonLatTimeUV.nc'
     call check(nf90_create("LonLatTimeUV.nc", NF90_CLOBBER, new_file), &
      "create LonLatTimeUV.nc")
+
+    ! next we will:
+    ! create the dimensions:
+    ! - longitude (float = real(4))
+    ! - latitude (float = real(4))
+    ! - time (double = real(8))
+    ! variables u & v (float = real(4))
+    ! (because scl_fact is a float too)
+
+    ! copy the attributes we want (see new_dataset_structure.txt)
+    ! from cmems_ibi_example.nc (ncid) to LonLatTimeUV.nc (new_file)
+
+    ! and finally set the global attributes of LonLatTimeUV.nc
+    ! (most of them will be imported/'copied' from cmems_ibi_example.nc
 
     ! UNFINISHED
 
