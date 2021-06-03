@@ -11,6 +11,8 @@ program create_LonLatTimeUV
     ! dimensions IDs (original file;output file)
     ! time,latitude,longitude,(depth)
     integer :: idt,idla,idlo,idd,idtt,idlaa,idloo
+    ! dimensions' variables IDs
+    integer :: idvt, idvla, idvlo, idvtt, idvlaa, idvloo
     ! variables IDs
     integer :: iduo,idvo,idu,idv
     ! dimensions
@@ -26,6 +28,10 @@ program create_LonLatTimeUV
     integer(2), dimension(:,:,:,:), allocatable :: uo, vo
     ! one key dimension less because we don't keep depth:
     real(4), dimension(:,:,:), allocatable :: u, v
+
+    ! dimensions' variables
+    real(4), dimension(:), allocatable :: longitude,latitude
+    real(8), dimension(:), allocatable :: timee
 
     ! loops iterations
     integer :: longs,lats,depths,times
@@ -154,23 +160,126 @@ program create_LonLatTimeUV
     call check(nf90_def_dim(new_file, "longitude", long, idloo),&
     "def dimension longitude in new dataset")
 
+    ! let's create the variables of the dimensions using:
+    ! nf90_def_var(ncid, name, xtype, dimids, varid)
+    ! here dimids is not necessary because it's one-dimension variables
+
+    call check(nf90_def_var(new_file, "time", NF90_DOUBLE, idvtt), &
+    "def var time")
+
+    call check(nf90_def_var(new_file, "longitude", NF90_FLOAT, idvloo), &
+    "def var longitude")
+
+    call check(nf90_def_var(new_file, "latitude", NF90_FLOAT, idvlaa), &
+    "def var latitude")
+
+    ! let's create the variables u & v
+
+    call check(nf90_def_var(new_file, "u", NF90_FLOAT, &
+    (/idloo, idlaa, idtt/), idu), "def var u")
+
+    call check(nf90_def_var(new_file, "v", NF90_FLOAT, &
+    (/idloo, idlaa, idtt/), idv), "def var v")
+
+    ! let's 'import' dimensions' & variables' attributes with:
+    ! nf90_copy_att(ncid_in, varid_in, name, ncid_out, varid_out)
+
+    ! to 'copy' attributes of the dimension's variables, we need their var_id
+    ! let's extract it
+
+    call check(nf90_inq_varid(ncid, "longitude", idvlo), "inq. var. ID long")
+    call check(nf90_inq_varid(ncid, "latitude", idvla), "inq. var. ID lat")
+    call check(nf90_inq_varid(ncid, "time", idvt), "inq. var. ID time")
+
+    ! importing attributes for the dimensions & variables
+
+    ! standard_name : all variables
+    call check(nf90_copy_att(ncid, idvt, &
+    "standard_name", new_file, idvtt), "copy attribute standard_name")
+
+    call check(nf90_copy_att(ncid, idvla, &
+    "standard_name", new_file, idvlaa), "copy attribute standard_name")
+
+    call check(nf90_copy_att(ncid, idvlo, &
+    "standard_name", new_file, idvloo), "copy attribute standard_name")
+
+    call check(nf90_copy_att(ncid, iduo, &
+    "standard_name", new_file, idu), "copy attribute standard_name")
+
+    call check(nf90_copy_att(ncid, idvo, &
+    "standard_name", new_file, idv), "copy attribute standard_name")
+
+
+
+    ! long_name : all variables
+    call check(nf90_copy_att(ncid, idvt, &
+    "long_name", new_file, idvtt), "copy attribute long_name")
+
+    call check(nf90_copy_att(ncid, idvla, &
+    "long_name", new_file, idvlaa), "copy attribute long_name")
+
+    call check(nf90_copy_att(ncid, idvlo, &
+    "long_name", new_file, idvloo), "copy attribute long_name")
+
+    call check(nf90_copy_att(ncid, iduo, &
+    "long_name", new_file, idu), "copy attribute long_name")
+
+    call check(nf90_copy_att(ncid, idvo, &
+    "long_name", new_file, idv), "copy attribute long_name")
+
+
+
+    ! units : all variables
+    call check(nf90_copy_att(ncid, idvt, &
+    "units", new_file, idvtt), "copy attribute units")
+
+    call check(nf90_copy_att(ncid, idvla, &
+    "units", new_file, idvlaa), "copy attribute units")
+
+    call check(nf90_copy_att(ncid, idvlo, &
+    "units", new_file, idvloo), "copy attribute units")
+
+    call check(nf90_copy_att(ncid, idvo, &
+    "units", new_file, idv), "copy attribute units")
+
+    call check(nf90_copy_att(ncid, iduo, &
+    "units", new_file, idu), "copy attribute units")
+
+
+
+    ! axis : only time, long, lat (dimensions)
+    call check(nf90_copy_att(ncid, idvt, &
+    "axis", new_file, idvtt), "copy attribute axis")
+
+    call check(nf90_copy_att(ncid, idvlo, &
+    "axis", new_file, idvloo), "copy attribute axis")
+
+    call check(nf90_copy_att(ncid, idvla, &
+    "axis", new_file, idvlaa), "copy attribute axis")
+
+
+
+    ! unit_long : only u & v (proper variables)
+    call check(nf90_copy_att(ncid, iduo, &
+    "unit_long", new_file, idu), "copy attribute unit_long")
+
+    call check(nf90_copy_att(ncid, idvo, &
+    "unit_long", new_file, idv), "copy attribute unit_long")
+
     ! =====================================================================
     ! =====================================================================
     ! =====================================================================
     ! UNFINISHED
 
-    ! let's create the variables u & v using:
-    ! nf90_def_var(ncid, name, xtype, dimids, varid)
-    ! here xtype will be NF90 FLOAT
-    ! here dimid will be u/v
-
-    ! TO DO
-
-    ! let's 'import' dimensions' & variables' attributes
-
-    ! TO DO
-
     ! let's set the global attributes
+
+    ! TO DO
+
+    ! let's 'fill' the dimensions
+
+    ! TO DO
+
+    ! let's 'fill' the variables
 
     ! TO DO
 
