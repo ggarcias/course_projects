@@ -160,8 +160,8 @@ program create_LonLatTimeUV
                 ! this loop is quite useless because there's only 1 depth
                 ! (that's why we could drop it)
                 do depths=1,depth
-                    v(longs,lats,times)=vo(longs,lats,depths,times)
-                    u(longs,lats,times)=uo(longs,lats,depths,times)
+                    v(longs,lats,times)=scl_fact*vo(longs,lats,depths,times)
+                    u(longs,lats,times)=scl_fact*uo(longs,lats,depths,times)
                 end do
             end do
         end do
@@ -356,11 +356,13 @@ program create_LonLatTimeUV
     ! let's extract the dimension's variables
     ! (nf90_get_var(ncid, varid, values, start, count, stride, map) )
 
+    allocate(timee(time))
+    allocate(longitude(long))
+    allocate(latitude(lat))
+
     call check(nf90_get_var(ncid, idvt, timee), "get var time")
     call check(nf90_get_var(ncid, idvlo, longitude), "get var long")
     call check(nf90_get_var(ncid, idvla, latitude), "get var lat")
-
-
 
 
     ! now that we extracted what we needed,
