@@ -360,6 +360,11 @@ program create_LonLatTimeUV
     allocate(longitude(long))
     allocate(latitude(lat))
 
+    print *, timee
+    print *, longitude(:10)
+    print *, latitude(:10)
+
+
     call check(nf90_get_var(ncid, idvt, timee), "get var time")
     call check(nf90_get_var(ncid, idvlo, longitude), "get var long")
     call check(nf90_get_var(ncid, idvla, latitude), "get var lat")
