@@ -25,12 +25,16 @@ program create_LonLatTimeUV
     real(4) :: scl_fact
 
     ! uo & vo, u & v variables (vectors)
+    ! shorts
     integer(2), dimension(:,:,:,:), allocatable :: uo, vo
     ! one key dimension less because we don't keep depth:
+    ! floats
     real(4), dimension(:,:,:), allocatable :: u, v
 
     ! dimensions' variables
+    ! floats
     real(4), dimension(:), allocatable :: longitude,latitude
+    ! doubles
     real(8), dimension(:), allocatable :: timee
 
     ! loops iterations
@@ -219,12 +223,12 @@ program create_LonLatTimeUV
     ! nf90_def_var(ncid, name, xtype, dimids, varid)
     ! here dimids is not necessary because it's one-dimension variables
 
-    call check(nf90_def_var(new_file, "time", NF90_DOUBLE, idvtt), &
+    call check(nf90_def_var(new_file, "time", NF90_DOUBLE, (/idtt/), idvtt), &
     "def var time")
-    call check(nf90_def_var(new_file, "longitude", NF90_FLOAT, idvloo), &
-    "def var longitude")
-    call check(nf90_def_var(new_file, "latitude", NF90_FLOAT, idvlaa), &
-    "def var latitude")
+    call check(nf90_def_var(new_file, "longitude", NF90_FLOAT, (/idloo/), &
+    idvloo), "def var longitude")
+    call check(nf90_def_var(new_file, "latitude", NF90_FLOAT, (/idlaa/), &
+    idvlaa), "def var latitude")
 
 
 
@@ -234,6 +238,9 @@ program create_LonLatTimeUV
     (/idloo, idlaa, idtt/), idu), "def var u")
     call check(nf90_def_var(new_file, "v", NF90_FLOAT, &
     (/idloo, idlaa, idtt/), idv), "def var v")
+
+
+
 
 
 
@@ -356,25 +363,15 @@ program create_LonLatTimeUV
     ! let's extract the dimension's variables
     ! (nf90_get_var(ncid, varid, values, start, count, stride, map) )
 
+
     allocate(timee(time))
     allocate(longitude(long))
     allocate(latitude(lat))
-
-    print *, timee
-    print *, longitude(:10)
-    print *, latitude(:10)
 
 
     call check(nf90_get_var(ncid, idvt, timee), "get var time")
     call check(nf90_get_var(ncid, idvlo, longitude), "get var long")
     call check(nf90_get_var(ncid, idvla, latitude), "get var lat")
-
-
-    ! now that we extracted what we needed,
-    ! let's close cmems_ibi_example.nc
-
-    call check(nf90_close(ncid), "close cmems_ibi_example.nc")
-
 
 
 
@@ -405,6 +402,10 @@ program create_LonLatTimeUV
     call check(nf90_close(new_file), "close LonLatTimeUV.nc")
 
 
+    ! now that we extracted what we needed,
+    ! let's close cmems_ibi_example.nc
+
+    call check(nf90_close(ncid), "close cmems_ibi_example.nc")
 
     ! =========================================================================
     ! DONE ====================================================================
