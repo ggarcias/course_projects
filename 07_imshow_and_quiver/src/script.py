@@ -62,7 +62,16 @@ for i in range(len(time_values)):
     # axs[i,j].quiver(data.variables["uo"][i,0,:,:], data.variables["vo"][i,0,:,:])
 
     plt.imshow(np.sqrt((data.variables["uo"][i,0,:,:])**2+(data.variables["vo"][i,0,:,:])**2))
+    plt.clim([0, 0.5]) # colour limit
+    plt.colorbar() # colour bar 
+
     plt.quiver(data.variables["uo"][i,0,:,:], data.variables["vo"][i,0,:,:])
+    
+    plt.title("que tal amaia?")
+    plt.xlabel("Longitude (º) E", fontsize=12)
+    plt.ylabel("Latitude (º) N", fontsize=12)
+
+    
     plt.savefig(f"./data/output/plot_time_{i}.png", dpi=600)
 
 # plt.savefig("./data/output/plot.png", dpi=3000)
